@@ -1,79 +1,68 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Desafio React Native: To-Do List App
 
-# Getting Started
+## Objetivo
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Desenvolver um aplicativo de lista de tarefas (To-Do List) utilizando React Native e TypeScript, com algumas funcionalidades avançadas.
 
-## Step 1: Start the Metro Server
+## Requisitos Básicos
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+1. **Página Inicial:**
 
-To start Metro, run the following command from the _root_ of your React Native project:
+   - Exibir uma lista de tarefas com nome, descrição, categoria e status (concluída/não concluída).
+   - Permitir adicionar uma nova tarefa com nome, descrição e escolher uma categoria.
+   - Permitir marcar/desmarcar uma tarefa como concluída.
+   - Permitir editar e excluir uma tarefa.
 
-```bash
-# using npm
-npm start
+2. **Adição de Tarefas:**
 
-# OR using Yarn
-yarn start
-```
+   - Ao adicionar uma nova tarefa, deve ser possível fornecer um nome, uma descrição e escolher uma categoria para a tarefa.
+   - A data de criação da tarefa deve ser registrada.
 
-## Step 2: Start your Application
+3. **Filtrar Tarefas:**
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+   - Adicionar a capacidade de filtrar as tarefas por categoria e por status (concluída/não concluída).
 
-### For Android
+## Funcionalidades Avançadas (Bônus)
 
-```bash
-# using npm
-npm run android
+5. **Navegação entre Telas:**
 
-# OR using Yarn
-yarn android
-```
+   - Implementar navegação entre pelo menos duas telas usando o React Navigation.
+   - Adicionar uma tela de detalhes da tarefa.
 
-### For iOS
+6. **Barra Inferior (Bottom Bar):**
 
-```bash
-# using npm
-npm run ios
+   - Adicionar uma barra inferior para navegação rápida entre diferentes seções do aplicativo (por exemplo, lista de tarefas, estatísticas, configurações).
 
-# OR using Yarn
-yarn ios
-```
+7. **Toasts:**
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+   - Utilizar um pacote de terceiros para exibir toasts (mensagens temporárias) quando uma tarefa é concluída ou uma nova tarefa é adicionada.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+8. **Bônus (Opcional):**
+   - Implementar persistência de dados por meio de um backend (ex: Firebase).
 
-## Step 3: Modifying your App
+## Critérios de Avaliação
 
-Now that you have successfully run the app, let's modify it.
+- Implementação correta dos requisitos básicos.
+- Uso eficiente do React Native e TypeScript.
+- Capacidade de integração das funcionalidades avançadas com o aplicativo existente.
+- Qualidade do código e boas práticas de desenvolvimento.
+- Documentação e comentários no código.
+- Organização e estrutura do projeto.
+- Uso de bibliotecas e ferramentas de terceiros.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Instruções para Execução
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+1. Clonar este repositório.
+2. Instalar as dependências usando `npm install` ou `yarn install`.
+3. Iniciar o aplicativo usando `npm start` ou `yarn start`.
+4. Implementar as funcionalidades necessárias.
+5. Enviar um pull request com suas alterações. ( com o nome do branch sendo o seu nome completo )
 
-## Congratulations! :tada:
+## Observações
 
-You've successfully run and modified your React Native App. :partying_face:
+- **TypeScript é obrigatório.**
+- Sinta-se à vontade para adicionar outras melhorias ou funcionalidades avançadas que você conhece.
+- Certifique-se de documentar quaisquer dependências adicionais no arquivo `package.json`.
+- Caso tenha alguma dúvida ou precise de esclarecimentos, fique à vontade para entrar em contato.
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Boa sorte!
