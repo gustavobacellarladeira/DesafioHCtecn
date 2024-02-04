@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Button,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import {
@@ -8,6 +15,10 @@ import {
   toggleStatus,
 } from '../Model/Task/TaskStatusEnum';
 import {TaskType} from '../Model/Task/TaskType';
+import HStack from '../Components/HStack';
+import ViewContainer from '../Components/ViewContainer';
+import Spacer from '../Components/Spacer';
+import {Typography} from '../Styles/Typography';
 
 type TodoListType = Array<TaskType>;
 
@@ -37,6 +48,19 @@ const TodoView = () => {
     );
   };
 
+  const addTask = () => {
+    setTasks([
+      ...tasks,
+      {
+        id: uuidv4(),
+        title: 'New Task',
+        description: 'New task description',
+        category: 'Test 2',
+        status: TaskStatus.Todo,
+      },
+    ]);
+  };
+
   const renderItem = ({item}: {item: TaskType}) => (
     <View style={styles.taskContainer}>
       <TouchableOpacity onPress={() => toggleTaskStatus(item.id)}>
@@ -48,51 +72,50 @@ const TodoView = () => {
           {item.title}
         </Text>
 
-        <View style={styles.hStack}>
+        <HStack>
           <Text style={styles.descriptionLabel}>{item.description}</Text>
           <Text style={styles.tag}>{item.category}</Text>
-        </View>
+        </HStack>
       </View>
     </View>
   );
 
   return (
-    <View style={styles.container}>
+    <ViewContainer>
       <Text style={styles.title}>Todo List</Text>
+
       <FlatList data={tasks} renderItem={renderItem} />
-    </View>
+
+      <Spacer />
+
+      <Button title="+ Add new task" onPress={addTask} />
+    </ViewContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
   checkbox: {
-    fontSize: 24,
+    fontSize: Typography.title2,
     paddingRight: 8,
   },
   taskLabel: {
-    fontSize: 24,
+    fontSize: Typography.title2,
     fontWeight: '600',
   },
   title: {
-    fontSize: 50,
+    fontSize: Typography.largeTitle,
     fontFamily: 'monospace',
     paddingBottom: 16,
   },
-  hStack: {
-    flexDirection: 'row',
-  },
   tag: {
     backgroundColor: 'lightgray',
-    fontSize: 12,
+    fontSize: Typography.caption1,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 16,
   },
   descriptionLabel: {
-    fontSize: 16,
+    fontSize: Typography.callout,
     paddingRight: 8,
   },
   taskContainer: {
