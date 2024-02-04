@@ -1,26 +1,26 @@
 import React, {useState} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 
-type TodoType = {
+type TaskType = {
+  id: string;
   title: string;
-  key: string;
 };
-type TodoListType = Array<TodoType>;
+type TodoListType = Array<TaskType>;
 
 const TodoView = () => {
-  const [todos, setTodos] = useState<TodoListType>([
-    {title: 'Teste', key: 'todo1'},
-    {title: 'Teste 2', key: 'todo2'},
+  const [tasks, setTasks] = useState<TodoListType>([
+    {id: 'tk1', title: 'Teste'},
+    {id: 'tk2', title: 'Teste 2'},
   ]);
 
-  const renderItem = ({item}: {item: TodoType}) => (
-    <Text key={item.key}>{item.title}</Text>
+  const renderItem = ({item}: {item: TaskType}) => (
+    <Text key={item.id}>{item.title}</Text>
   );
 
   return (
     <View>
       <Text>Todo</Text>
-      <FlatList data={todos} renderItem={renderItem} />
+      <FlatList data={tasks} renderItem={renderItem} />
     </View>
   );
 };
