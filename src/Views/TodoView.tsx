@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import 'react-native-get-random-values';
+import {v4 as uuidv4} from 'uuid';
 
 type TaskType = {
   id: string;
@@ -9,8 +11,8 @@ type TodoListType = Array<TaskType>;
 
 const TodoView = () => {
   const [tasks, setTasks] = useState<TodoListType>([
-    {id: 'tk1', title: 'Teste'},
-    {id: 'tk2', title: 'Teste 2'},
+    {id: uuidv4(), title: 'Teste'},
+    {id: uuidv4(), title: 'Teste 2'},
   ]);
 
   const renderItem = ({item}: {item: TaskType}) => (
