@@ -1,30 +1,90 @@
 import React, {useState} from 'react';
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
+import {TaskStatus, TaskStatusChars} from '../Model/Task/TaskStatusEnum';
+import {TaskType} from '../Model/Task/TaskType';
 
-type TaskType = {
-  id: string;
-  title: string;
-};
 type TodoListType = Array<TaskType>;
 
 const TodoView = () => {
   const [tasks, setTasks] = useState<TodoListType>([
-    {id: uuidv4(), title: 'Teste'},
-    {id: uuidv4(), title: 'Teste 2'},
+    {
+      id: uuidv4(),
+      title: 'Teste',
+      description: 'Description',
+      category: 'Test',
+      status: TaskStatus.Todo,
+    },
+    {
+      id: uuidv4(),
+      title: 'Teste 2',
+      description: 'Description 2',
+      category: 'Test',
+      status: TaskStatus.Todo,
+    },
   ]);
 
   const renderItem = ({item}: {item: TaskType}) => (
-    <Text key={item.id}>{item.title}</Text>
+    <View style={styles.taskContainer}>
+      <Text style={styles.checkbox}>{TaskStatusChars[item.status]}</Text>
+
+      <View>
+        <Text key={item.id} style={styles.taskLabel}>
+          {item.title}
+        </Text>
+
+        <View style={styles.hStack}>
+          <Text style={styles.descriptionLabel}>{item.description}</Text>
+          <Text style={styles.tag}>{item.category}</Text>
+        </View>
+      </View>
+    </View>
   );
 
   return (
-    <View>
-      <Text>Todo</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Todo List</Text>
       <FlatList data={tasks} renderItem={renderItem} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+  },
+  checkbox: {
+    fontSize: 24,
+    paddingRight: 8,
+  },
+  taskLabel: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  title: {
+    fontSize: 50,
+    fontFamily: 'monospace',
+    paddingBottom: 16,
+  },
+  hStack: {
+    flexDirection: 'row',
+  },
+  tag: {
+    backgroundColor: 'lightgray',
+    fontSize: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 16,
+  },
+  descriptionLabel: {
+    fontSize: 16,
+    paddingRight: 8,
+  },
+  taskContainer: {
+    flexDirection: 'row',
+    paddingBottom: 16,
+  },
+});
 
 export default TodoView;
