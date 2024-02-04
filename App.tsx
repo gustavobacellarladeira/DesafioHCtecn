@@ -1,24 +1,26 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import TodoView from './src/Views/TodoView';
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>
-          Bem-vindo ao Desafio To-Do List App!
-        </Text>
-        <Text style={styles.sectionDescription}>
-          Este é um aplicativo exemplo para iniciar o desafio. Sua tarefa é
-          implementar as funcionalidades descritas no README.md e tornar este
-          aplicativo funcional.
-        </Text>
-        <Text style={styles.sectionDescription}>
-          Boa sorte e divirta-se codificando!
-        </Text>
-      </View>
-    </SafeAreaView>
+    <TodoView />
+    // <SafeAreaView style={styles.container}>
+    //   <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+    //   <View style={styles.sectionContainer}>
+    //     <Text style={styles.sectionTitle}>
+    //       Bem-vindo ao Desafio To-Do List App!
+    //     </Text>
+    //     <Text style={styles.sectionDescription}>
+    //       Este é um aplicativo exemplo para iniciar o desafio. Sua tarefa é
+    //       implementar as funcionalidades descritas no README.md e tornar este
+    //       aplicativo funcional.
+    //     </Text>
+    //     <Text style={styles.sectionDescription}>
+    //       Boa sorte e divirta-se codificando!
+    //     </Text>
+    //   </View>
+    // </SafeAreaView>
   );
 }
 
