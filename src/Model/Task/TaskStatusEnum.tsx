@@ -1,11 +1,13 @@
 export enum TaskStatus {
   Todo,
-  Ongoing,
   Done,
 }
 
 export const TaskStatusChars = {
   [TaskStatus.Todo]: '⬜️',
-  [TaskStatus.Ongoing]: '⏳',
   [TaskStatus.Done]: '✅',
+};
+
+export const toggleStatus = (status: TaskStatus) => {
+  return status == TaskStatus.Done ? TaskStatus.Todo : TaskStatus.Done;
 };

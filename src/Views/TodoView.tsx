@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
-import {TaskStatus, TaskStatusChars} from '../Model/Task/TaskStatusEnum';
+import {
+  TaskStatus,
+  TaskStatusChars,
+  toggleStatus,
+} from '../Model/Task/TaskStatusEnum';
 import {TaskType} from '../Model/Task/TaskType';
 
 type TodoListType = Array<TaskType>;
@@ -25,9 +29,19 @@ const TodoView = () => {
     },
   ]);
 
+  const toggleTaskStatus = (id: string) => {
+    setTasks(
+      tasks.map(task =>
+        task.id == id ? {...task, status: toggleStatus(task.status)} : task,
+      ),
+    );
+  };
+
   const renderItem = ({item}: {item: TaskType}) => (
     <View style={styles.taskContainer}>
-      <Text style={styles.checkbox}>{TaskStatusChars[item.status]}</Text>
+      <TouchableOpacity onPress={() => toggleTaskStatus(item.id)}>
+        <Text style={styles.checkbox}>{TaskStatusChars[item.status]}</Text>
+      </TouchableOpacity>
 
       <View>
         <Text key={item.id} style={styles.taskLabel}>
