@@ -1,4 +1,4 @@
-import React, {ReactNode, createContext, useState} from 'react';
+import React, {ReactNode, createContext, useEffect, useState} from 'react';
 import {TaskType} from '../Model/Task/TaskType';
 import {TaskStatus, toggleStatus} from '../Model/Task/TaskStatusEnum';
 import {v4 as uuidv4} from 'uuid';
@@ -7,6 +7,7 @@ type TodoListType = Array<TaskType>;
 
 type TasksContextType = {
   tasks: TodoListType;
+  statusFilter: Array<TaskStatus>;
   addTask: (title: string, description: string, category: string) => void;
   toggleTaskStatus: (id: string) => void;
   removeTask: (id: string) => void;
@@ -16,14 +17,19 @@ type TasksContextType = {
     description: string,
     category: string,
   ) => void;
+  toggleStatusFilter: (status: TaskStatus) => void;
+  filteredTasks?: TodoListType;
 };
 
 export const TasksContext = createContext<TasksContextType>({
   tasks: [],
+  statusFilter: [TaskStatus.Done, TaskStatus.Todo],
   addTask: () => {},
   toggleTaskStatus: () => {},
   removeTask: () => {},
   editTask: () => {},
+  toggleStatusFilter: () => {},
+  filteredTasks: [],
 });
 
 const TasksContextProvider = ({children}: {children: ReactNode}) => {
@@ -37,6 +43,29 @@ const TasksContextProvider = ({children}: {children: ReactNode}) => {
       creationDate: new Date(),
     },
   ]);
+
+  const [statusFilter, setStatusFilter] = useState<Array<TaskStatus>>([
+    TaskStatus.Done,
+    TaskStatus.Todo,
+  ]);
+
+  const [filteredTasks, setFilteredTasks] = useState<TodoListType>([]);
+
+  useEffect(() => {
+    setFilteredTasks(
+      tasks.filter(task =>
+        statusFilter.length > 0 ? statusFilter.includes(task.status) : false,
+      ),
+    );
+  }, [statusFilter]);
+
+  const toggleStatusFilter = (status: TaskStatus) => {
+    if (!statusFilter.includes(status)) {
+      setStatusFilter([...statusFilter, status]);
+    } else {
+      setStatusFilter(statusFilter.filter(filter => filter != status));
+    }
+  };
 
   const addTask = (title: string, description: string, category: string) => {
     setTasks([
@@ -79,7 +108,16 @@ const TasksContextProvider = ({children}: {children: ReactNode}) => {
 
   return (
     <TasksContext.Provider
-      value={{tasks, addTask, toggleTaskStatus, removeTask, editTask}}>
+      value={{
+        tasks,
+        statusFilter,
+        addTask,
+        toggleTaskStatus,
+        removeTask,
+        editTask,
+        toggleStatusFilter,
+        filteredTasks,
+      }}>
       {children}
     </TasksContext.Provider>
   );
