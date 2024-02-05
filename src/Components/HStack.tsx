@@ -12,6 +12,7 @@ const HStack = ({children}: {children: ReactNode}) => (
 const styles = StyleSheet.create({
   hStack: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

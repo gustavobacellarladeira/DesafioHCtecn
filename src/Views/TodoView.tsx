@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import {
   Button,
   FlatList,
@@ -8,58 +8,18 @@ import {
   View,
 } from 'react-native';
 import 'react-native-get-random-values';
-import {v4 as uuidv4} from 'uuid';
-import {
-  TaskStatus,
-  TaskStatusChars,
-  toggleStatus,
-} from '../Model/Task/TaskStatusEnum';
+import {useNavigation} from '@react-navigation/native';
+import {TaskStatusChars} from '../Model/Task/TaskStatusEnum';
 import {TaskType} from '../Model/Task/TaskType';
 import HStack from '../Components/HStack';
 import ViewContainer from '../Components/ViewContainer';
 import Spacer from '../Components/Spacer';
 import {Typography} from '../Styles/Typography';
-
-type TodoListType = Array<TaskType>;
+import {TasksContext} from './TasksContext';
 
 const TodoView = () => {
-  const [tasks, setTasks] = useState<TodoListType>([
-    {
-      id: uuidv4(),
-      title: 'Teste',
-      description: 'Description',
-      category: 'Test',
-      status: TaskStatus.Todo,
-    },
-    {
-      id: uuidv4(),
-      title: 'Teste 2',
-      description: 'Description 2',
-      category: 'Test',
-      status: TaskStatus.Todo,
-    },
-  ]);
-
-  const toggleTaskStatus = (id: string) => {
-    setTasks(
-      tasks.map(task =>
-        task.id == id ? {...task, status: toggleStatus(task.status)} : task,
-      ),
-    );
-  };
-
-  const addTask = () => {
-    setTasks([
-      ...tasks,
-      {
-        id: uuidv4(),
-        title: 'New Task',
-        description: 'New task description',
-        category: 'Test 2',
-        status: TaskStatus.Todo,
-      },
-    ]);
-  };
+  const navigation = useNavigation();
+  const {tasks, toggleTaskStatus, removeTask} = useContext(TasksContext);
 
   const renderItem = ({item}: {item: TaskType}) => (
     <View style={styles.taskContainer}>
@@ -77,6 +37,17 @@ const TodoView = () => {
           <Text style={styles.tag}>{item.category}</Text>
         </HStack>
       </View>
+
+      <Spacer />
+
+      <HStack>
+        <TouchableOpacity onPress={() => console.log('a')}>
+          <Text style={styles.buttons}>✏️</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => removeTask(item.id)}>
+          <Text style={styles.buttons}>🗑️</Text>
+        </TouchableOpacity>
+      </HStack>
     </View>
   );
 
@@ -86,7 +57,12 @@ const TodoView = () => {
 
       <Spacer />
 
-      <Button title="+ Add new task" onPress={addTask} />
+      <Button
+        title="+ Add new task"
+        onPress={() => {
+          navigation.navigate('NewTask');
+        }}
+      />
     </ViewContainer>
   );
 };
@@ -119,6 +95,13 @@ const styles = StyleSheet.create({
   taskContainer: {
     flexDirection: 'row',
     paddingBottom: 16,
+  },
+  buttons: {
+    fontSize: Typography.body,
+    backgroundColor: 'white',
+    marginHorizontal: 4,
+    padding: 4,
+    borderRadius: 8,
   },
 });
 

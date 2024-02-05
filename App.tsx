@@ -1,38 +1,31 @@
 import React from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import TodoView from './src/Views/TodoView';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import CreateTaskView from './src/Views/CreateTaskView';
+import TasksContextProvider from './src/Views/TasksContext';
 
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Todo List"
-          component={TodoView}
-          options={{title: 'Todo List'}}
-        />
-      </Stack.Navigator>
+      <TasksContextProvider>
+        <Stack.Navigator initialRouteName="TodoList">
+          <Stack.Screen
+            name="TodoList"
+            component={TodoView}
+            options={{title: 'Todo List'}}
+          />
+          <Stack.Screen
+            name="NewTask"
+            component={CreateTaskView}
+            options={{title: 'Create new Task'}}
+          />
+        </Stack.Navigator>
+      </TasksContextProvider>
     </NavigationContainer>
-    // <SafeAreaView style={styles.container}>
-    //   <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-    //   <View style={styles.sectionContainer}>
-    //     <Text style={styles.sectionTitle}>
-    //       Bem-vindo ao Desafio To-Do List App!
-    //     </Text>
-    //     <Text style={styles.sectionDescription}>
-    //       Este é um aplicativo exemplo para iniciar o desafio. Sua tarefa é
-    //       implementar as funcionalidades descritas no README.md e tornar este
-    //       aplicativo funcional.
-    //     </Text>
-    //     <Text style={styles.sectionDescription}>
-    //       Boa sorte e divirta-se codificando!
-    //     </Text>
-    //   </View>
-    // </SafeAreaView>
   );
 }
 
