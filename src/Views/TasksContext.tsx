@@ -34,13 +34,21 @@ const TasksContextProvider = ({children}: {children: ReactNode}) => {
       description: 'Description',
       category: 'Test',
       status: TaskStatus.Todo,
+      creationDate: new Date(),
     },
   ]);
 
   const addTask = (title: string, description: string, category: string) => {
     setTasks([
       ...tasks,
-      {id: uuidv4(), title, description, category, status: TaskStatus.Todo},
+      {
+        id: uuidv4(),
+        title,
+        description,
+        category,
+        status: TaskStatus.Todo,
+        creationDate: new Date(),
+      },
     ]);
   };
 
@@ -64,9 +72,7 @@ const TasksContextProvider = ({children}: {children: ReactNode}) => {
   ) => {
     setTasks(
       tasks.map(task =>
-        task.id == id
-          ? {id, title, description, category, status: task.status}
-          : task,
+        task.id == id ? {...task, title, description, category} : task,
       ),
     );
   };

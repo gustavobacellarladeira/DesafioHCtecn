@@ -6,4 +6,5 @@ export type TaskType = {
   description: string;
   category: string;
   status: TaskStatus;
+  creationDate: Date;
 };
