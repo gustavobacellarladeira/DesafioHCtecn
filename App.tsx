@@ -1,10 +1,22 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import TodoView from './src/Views/TodoView';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   return (
-    <TodoView />
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Todo List"
+          component={TodoView}
+          options={{title: 'Todo List'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
     // <SafeAreaView style={styles.container}>
     //   <StatusBar barStyle="dark-content" backgroundColor="#fff" />
     //   <View style={styles.sectionContainer}>

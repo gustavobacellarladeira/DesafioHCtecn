@@ -82,8 +82,6 @@ const TodoView = () => {
 
   return (
     <ViewContainer>
-      <Text style={styles.title}>Todo List</Text>
-
       <FlatList data={tasks} renderItem={renderItem} />
 
       <Spacer />
