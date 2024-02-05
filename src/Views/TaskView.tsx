@@ -5,15 +5,19 @@ import {Typography} from '../Styles/Typography';
 import Spacer from '../Components/Spacer';
 import {useNavigation} from '@react-navigation/native';
 import {TasksContext} from './TasksContext';
-import {TaskStatus} from '../Model/Task/TaskStatusEnum';
 
-const CreateTaskView = () => {
+const TaskView = ({route}) => {
   const navigation = useNavigation();
-  const {addTask} = useContext(TasksContext);
+  const {isEditing, task} = route.params;
+  const {addTask, editTask} = useContext(TasksContext);
 
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [category, setCategory] = useState<string>('');
+  const [title, setTitle] = useState<string>(isEditing ? task.title : '');
+  const [description, setDescription] = useState<string>(
+    isEditing ? task.description : '',
+  );
+  const [category, setCategory] = useState<string>(
+    isEditing ? task.category : '',
+  );
 
   const inputs = [
     {
@@ -38,8 +42,8 @@ const CreateTaskView = () => {
 
   return (
     <ViewContainer>
-      {inputs.map(input => (
-        <View style={styles.textFieldContainer}>
+      {inputs.map((input, index) => (
+        <View style={styles.textFieldContainer} key={index}>
           <Text style={styles.label}>{input.title}</Text>
           <TextInput
             style={styles.textField}
@@ -53,9 +57,14 @@ const CreateTaskView = () => {
       <Spacer />
 
       <Button
-        title="Add Task"
+        title={isEditing ? 'Edit Task' : 'Add Task'}
         onPress={() => {
-          addTask(title, description, category);
+          if (isEditing) {
+            editTask(task.id, title, description, category);
+          } else {
+            addTask(title, description, category);
+          }
+
           navigation.goBack();
         }}
       />
@@ -82,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateTaskView;
+export default TaskView;

@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import TodoView from './src/Views/TodoView';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import CreateTaskView from './src/Views/CreateTaskView';
+import TaskView from './src/Views/TaskView';
 import TasksContextProvider from './src/Views/TasksContext';
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +20,7 @@ function App(): React.JSX.Element {
           />
           <Stack.Screen
             name="NewTask"
-            component={CreateTaskView}
+            component={TaskView}
             options={{title: 'Create new Task'}}
           />
         </Stack.Navigator>

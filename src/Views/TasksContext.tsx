@@ -10,9 +10,21 @@ type TasksContextType = {
   addTask: (title: string, description: string, category: string) => void;
   toggleTaskStatus: (id: string) => void;
   removeTask: (id: string) => void;
+  editTask: (
+    id: string,
+    title: string,
+    description: string,
+    category: string,
+  ) => void;
 };
 
-export const TasksContext = createContext<TasksContextType>(undefined);
+export const TasksContext = createContext<TasksContextType>({
+  tasks: [],
+  addTask: () => {},
+  toggleTaskStatus: () => {},
+  removeTask: () => {},
+  editTask: () => {},
+});
 
 const TasksContextProvider = ({children}: {children: ReactNode}) => {
   const [tasks, setTasks] = useState<TodoListType>([
@@ -44,9 +56,24 @@ const TasksContextProvider = ({children}: {children: ReactNode}) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
+  const editTask = (
+    id: string,
+    title: string,
+    description: string,
+    category: string,
+  ) => {
+    setTasks(
+      tasks.map(task =>
+        task.id == id
+          ? {id, title, description, category, status: task.status}
+          : task,
+      ),
+    );
+  };
+
   return (
     <TasksContext.Provider
-      value={{tasks, addTask, toggleTaskStatus, removeTask}}>
+      value={{tasks, addTask, toggleTaskStatus, removeTask, editTask}}>
       {children}
     </TasksContext.Provider>
   );

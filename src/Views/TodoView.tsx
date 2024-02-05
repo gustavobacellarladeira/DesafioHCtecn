@@ -41,7 +41,10 @@ const TodoView = () => {
       <Spacer />
 
       <HStack>
-        <TouchableOpacity onPress={() => console.log('a')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('NewTask', {isEditing: true, task: item})
+          }>
           <Text style={styles.buttons}>✏️</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => removeTask(item.id)}>
@@ -60,7 +63,7 @@ const TodoView = () => {
       <Button
         title="+ Add new task"
         onPress={() => {
-          navigation.navigate('NewTask');
+          navigation.navigate('NewTask', {isEditing: false, task: undefined});
         }}
       />
     </ViewContainer>
