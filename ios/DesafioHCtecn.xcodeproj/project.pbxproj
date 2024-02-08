@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* DesafioHCtecnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DesafioHCtecnTests.m */; };
+		12E506F72B7591B200D455F8 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E506F62B7591B200D455F8 /* Ionicons.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -32,6 +33,7 @@
 		00E356F21AD99517003FC87E /* DesafioHCtecnTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DesafioHCtecnTests.m; sourceTree = "<group>"; };
 		0FD7755CF577E7F3F24A1785 /* Pods-DesafioHCtecn-DesafioHCtecnTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DesafioHCtecn-DesafioHCtecnTests.release.xcconfig"; path = "Target Support Files/Pods-DesafioHCtecn-DesafioHCtecnTests/Pods-DesafioHCtecn-DesafioHCtecnTests.release.xcconfig"; sourceTree = "<group>"; };
 		10EA000C1014A25AC2B65FCB /* Pods-DesafioHCtecn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DesafioHCtecn.release.xcconfig"; path = "Target Support Files/Pods-DesafioHCtecn/Pods-DesafioHCtecn.release.xcconfig"; sourceTree = "<group>"; };
+		12E506F62B7591B200D455F8 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* DesafioHCtecn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesafioHCtecn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = DesafioHCtecn/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = DesafioHCtecn/AppDelegate.mm; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				12E506F62B7591B200D455F8 /* Ionicons.ttf */,
 				13B07FAE1A68108700A75B9A /* DesafioHCtecn */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* DesafioHCtecnTests */,
@@ -243,6 +246,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				12E506F72B7591B200D455F8 /* Ionicons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
