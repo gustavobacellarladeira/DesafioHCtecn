@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "631107830462",
+    "project_id": "smart-luggage-78dbe",
+    "storage_bucket": "smart-luggage-78dbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631107830462:android:891f2e5f790047f9d354ef",
+        "android_client_info": {
+          "package_name": "com.desafiohctecn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAthH6I5LH-g1RAhwoDxVPwoy7q7xpsFU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
