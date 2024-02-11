@@ -1,9 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {TabNavigationProps} from './types';
-import {Home, Settings} from 'src/screens';
+import {Settings} from 'src/screens';
 import colors from 'src/styles/colors';
+import StackNavigator from '../stack/navigation';
+import {TabNavigationProps} from './types';
 
 const Tab = createBottomTabNavigator<TabNavigationProps>();
 
@@ -22,7 +23,7 @@ const TabNavigator = () => {
     <Tab.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={StackNavigator}
         options={{
           tabBarIcon: ({focused}) => iconTab({name: 'home', focused}),
           tabBarActiveTintColor: colors.primary,
