@@ -7,7 +7,6 @@ const createTask = async (task: Task) => {
     await firestore()
       .collection('Tasks')
       .add({...task, status: Status.NOT_COMPLETE, date: getDate()});
-    console.log('Task added!');
   } catch (error) {
     console.log(error);
   }
