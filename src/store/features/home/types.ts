@@ -4,6 +4,7 @@ enum Status {
 }
 
 export type Task = {
+  id: string;
   name: string;
   description: string;
   category: string;
@@ -13,4 +14,5 @@ export type Task = {
 
 export type State = {
   tasks: Task[];
+  refresh: boolean;
 };
