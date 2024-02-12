@@ -1,19 +1,34 @@
-import React, {ReactElement, useEffect} from 'react';
-import {Alert, FlatList, ListRenderItemInfo} from 'react-native';
+import React, {ReactElement, useCallback, useEffect} from 'react';
+import {
+  Alert,
+  FlatList,
+  ListRenderItemInfo,
+  RefreshControl,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useSelector} from 'react-redux';
+
+import Toast from 'react-native-toast-message';
 
 import {CardItem, Divider, FloatButton} from 'src/components';
 import styles from './styles';
 
-import {useAppDispatch} from 'src/store/hook';
+import {useAppDispatch, useAppSelector} from 'src/store/hook';
 import {homeActions as actions} from 'src/store/features/home/slice';
 import {getTasks, refresh} from 'src/store/features/home/selector';
 
+type FormData = {
+  id?: string;
+  name: string;
+  description: string;
+  category: string;
+};
+
 type RootStackParamList = {
-  HomeList: undefined;
-  Form: undefined;
+  HomeList: {
+    addOrEdit: 'add' | 'edit' | undefined;
+  };
+  Form: FormData;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'HomeList'>;
@@ -27,10 +42,11 @@ type ItemProps = {
   status: number;
 };
 
-const Home = ({navigation}: Props) => {
+const Home = ({route, navigation}: Props) => {
   const dispatch = useAppDispatch();
-  const tasks = useSelector(getTasks);
-  const refreshing = useSelector(refresh);
+  const tasks = useAppSelector(getTasks);
+  const refreshing = useAppSelector(refresh);
+  const {addOrEdit} = route.params ?? {addOrEdit: undefined};
 
   useEffect(() => {
     dispatch(actions.getTasks());
@@ -42,7 +58,28 @@ const Home = ({navigation}: Props) => {
     }
   }, [dispatch, refreshing]);
 
-  const handleDelete = (id: string) => () => {
+  useEffect(() => {
+    if (addOrEdit === 'add') {
+      Toast.show({
+        type: 'success',
+        text1: 'Task added',
+        visibilityTime: 1500,
+      });
+    }
+    if (addOrEdit === 'edit') {
+      Toast.show({
+        type: 'info',
+        text1: 'Task updated',
+        visibilityTime: 1500,
+      });
+    }
+  }, [addOrEdit]);
+
+  const loadMore = useCallback(() => {
+    dispatch(actions.loadMore());
+  }, [dispatch]);
+
+  const handleDelete = (id: string, name: string) => () => {
     Alert.alert('Delete', 'Are you sure?', [
       {
         text: 'Cancel',
@@ -52,6 +89,11 @@ const Home = ({navigation}: Props) => {
         text: 'OK',
         onPress: () => {
           dispatch(actions.removeTask(id));
+          Toast.show({
+            type: 'error',
+            text1: `Task ${name} removed`,
+            visibilityTime: 1500,
+          });
         },
       },
     ]);
@@ -59,10 +101,25 @@ const Home = ({navigation}: Props) => {
 
   const handleStatus = (id: string) => () => {
     dispatch(actions.updateStatusTask(id));
+    Toast.show({
+      type: 'info',
+      text1: 'Status updated',
+      visibilityTime: 1500,
+    });
   };
 
-  const addItem = () => {
-    navigation.navigate('Form');
+  const addTask = () => {
+    navigation.navigate('Form', {
+      name: '',
+      description: '',
+      category: '',
+    });
+  };
+
+  const updateTask = (task: ItemProps) => () => {
+    if (task !== undefined) {
+      return navigation.navigate('Form', {...task});
+    }
   };
 
   const renderItem: (
@@ -76,8 +133,8 @@ const Home = ({navigation}: Props) => {
         category={item.category}
         date={item.date}
         status={item.status}
-        onPress={() => {}}
-        handleDelete={handleDelete(item.id)}
+        onPress={updateTask(item)}
+        handleDelete={handleDelete(item.id, item.name)}
         handleStatus={handleStatus(item.id)}
       />
     );
@@ -90,8 +147,12 @@ const Home = ({navigation}: Props) => {
         renderItem={renderItem}
         ItemSeparatorComponent={Divider}
         extraData={tasks}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={loadMore} />
+        }
       />
-      <FloatButton name="add" onPress={addItem} />
+      <FloatButton name="add" onPress={addTask} />
+      <Toast />
     </SafeAreaView>
   );
 };

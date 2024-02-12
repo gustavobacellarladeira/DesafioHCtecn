@@ -1,27 +1,32 @@
-import React from 'react';
-import {
-  KeyboardAvoidingView,
-  SafeAreaView,
-  Text,
-  TextInput,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {KeyboardAvoidingView, Text, TextInput} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RectButton} from 'react-native-gesture-handler';
 import * as yup from 'yup';
 import {Formik} from 'formik';
-import {RectButton} from 'react-native-gesture-handler';
+
 import {formActions as actions} from 'src/store/features/form/slice';
-import {useAppDispatch, useAppSelector} from 'src/store/hook';
+import {useAppDispatch} from 'src/store/hook';
+
 import styles from './styles';
-import {getActionCompleted} from 'src/store/features/form/selector';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 type RootStackParamList = {
-  HomeList: undefined;
-  Form: undefined;
+  HomeList: {
+    addOrEdit: 'add' | 'edit' | undefined;
+  };
+  Form: {
+    id: string;
+    name: string;
+    description: string;
+    category: string;
+  };
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Form'>;
 
 type FormData = {
+  id?: string;
   name: string;
   description: string;
   category: string;
@@ -33,19 +38,34 @@ const scheme = yup.object().shape({
   category: yup.string().required('Category is required'),
 });
 
-const initialValues = {
-  name: '',
-  description: '',
-  category: '',
-};
-
-const Form = ({navigation}: Props) => {
+const Form = ({route, navigation}: Props) => {
   const dispatch = useAppDispatch();
-  const actionCompleted = useAppSelector(getActionCompleted);
+  const {id, name, description, category} = route.params;
+
+  useEffect(() => {
+    if (id !== undefined) {
+      dispatch(actions.loadTask(id));
+    }
+  }, [dispatch, id]);
+
+  const initialValues = {
+    name: name ?? '',
+    description: description ?? '',
+    category: category ?? '',
+  };
 
   const onSubmit = (formData: FormData) => {
-    dispatch(actions.createTask(formData));
-    navigation.navigate('HomeList');
+    if (id !== undefined) {
+      dispatch(actions.updateTask({task: formData, id}));
+      navigation.navigate('HomeList', {
+        addOrEdit: 'edit',
+      });
+    } else {
+      dispatch(actions.createTask(formData)),
+        navigation.navigate('HomeList', {
+          addOrEdit: 'add',
+        });
+    }
   };
 
   return (
@@ -97,7 +117,9 @@ const Form = ({navigation}: Props) => {
                 <Text style={styles.messageError}>{errors.category}</Text>
               )}
               <RectButton style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.textButton}>Add Task</Text>
+                <Text style={styles.textButton}>
+                  {id === undefined ? 'Add' : 'Edit'} Task
+                </Text>
               </RectButton>
             </>
           )}
